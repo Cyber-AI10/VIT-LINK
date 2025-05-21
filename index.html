@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vit-Link</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #333; color: white; padding: 20px; text-align: center; }
+    nav { background: #444; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    .container { padding: 20px; }
+    .course, .login, .register, .certificate { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+    footer { background: #222; color: white; text-align: center; padding: 10px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Vit-Link</h1>
+    <p>Empowering Youth Through Practical IT Skills</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#courses">Courses</a>
+    <a href="#login">Login</a>
+    <a href="#register">Register</a>
+    <a href="#certificate">Certificate</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="container" id="home">
+    <h2>Welcome to Vit-Link</h2>
+    <p>Learn essential computer skills online, anywhere in Uganda. Start your tech journey today!</p>
+  </div>
+
+  <div class="container" id="courses">
+    <h2>Courses Offered</h2>
+    <div class="course">
+      <h3>Introduction to Computers</h3>
+      <p>Learn how to use a computer, file management, and typing basics.</p>
+      <a href="#">Access Course</a>
+    </div>
+    <div class="course">
+      <h3>Microsoft Office Suite</h3>
+      <p>Master MS Word, Excel, and PowerPoint with hands-on practice.</p>
+      <a href="#">Access Course</a>
+    </div>
+    <div class="course">
+      <h3>Website Design Basics (HTML + CSS)</h3>
+      <p>Start creating websites using HTML and CSS. No coding experience needed!</p>
+      <a href="#">Access Course</a>
+    </div>
+  </div>
+
+  <div class="container" id="login">
+    <h2>Student Login</h2>
+    <form>
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="container" id="register">
+    <h2>Student Registration</h2>
+    <form>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email Address" required />
+      <input type="text" placeholder="Phone Number" required />
+      <input type="text" placeholder="Create Username" required />
+      <input type="password" placeholder="Create Password" required />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div class="container" id="certificate">
+    <h2>Download Certificate</h2>
+    <form>
+      <input type="text" placeholder="Enter Your Name" required />
+      <input type="text" placeholder="Course Name" required />
+      <button type="submit">Generate Certificate</button>
+    </form>
+    <p>Note: Your certificate will be generated after completing the course and submitted assessments.</p>
+  </div>
+
+  <div class="container" id="contact">
+    <h2>Contact Us</h2>
+    <p>WhatsApp: +256 7XX XXX XXX</p>
+    <p>Email: vitlink@gmail.com</p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Vit-Link. All rights reserved.</p>
+  </footer>
+</body>
+</html>
