@@ -106,7 +106,6 @@
   <script>
     const backendURL = 'https://vitlink.onrender.com';
 
-    // Load courses dynamically
     async function loadCourses() {
       const container = document.getElementById('coursesList');
       container.innerHTML = 'Loading courses...';
@@ -130,7 +129,6 @@
       }
     }
 
-    // Register form submit
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target;
@@ -164,7 +162,6 @@
       }
     });
 
-    // Login form submit
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target;
@@ -197,7 +194,6 @@
       }
     });
 
-    // Show dashboard
     function showDashboard() {
       document.getElementById('dashboardUsername').textContent = localStorage.getItem('username');
       document.getElementById('dashboard').classList.remove('hidden');
@@ -206,7 +202,6 @@
       document.getElementById('logoutLink').classList.remove('hidden');
     }
 
-    // Logout functionality
     document.getElementById('logoutButton').addEventListener('click', () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
@@ -216,6 +211,22 @@
       document.getElementById('logoutLink').classList.add('hidden');
     });
 
-    // Logout link in nav
     document.getElementById('logoutLink').addEventListener('click', (e) => {
-      e.preventDefault
+      e.preventDefault();
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('login').classList.remove('hidden');
+      document.getElementById('register').classList.remove('hidden');
+      document.getElementById('logoutLink').classList.add('hidden');
+    });
+
+    window.onload = () => {
+      if (localStorage.getItem('token') && localStorage.getItem('username')) {
+        showDashboard();
+      }
+      loadCourses();
+    };
+  </script>
+</body>
+</html>
