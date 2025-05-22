@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vit-Link</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
@@ -10,10 +10,13 @@
     nav { background: #444; padding: 10px; text-align: center; }
     nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
     .container { padding: 20px; }
-    .course, .login, .register, .certificate { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .course, .login, .register, .certificate, .dashboard, .admin { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     input, button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
     footer { background: #222; color: white; text-align: center; padding: 10px; margin-top: 20px; }
     #registerMessage, #loginMessage { margin-top: 10px; font-weight: bold; }
+    .hidden { display: none; }
+    .logout-btn { background-color: #e74c3c; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    .logout-btn:hover { background-color: #c0392b; }
   </style>
 </head>
 <body>
@@ -28,7 +31,9 @@
     <a href="#login">Login</a>
     <a href="#register">Register</a>
     <a href="#certificate">Certificate</a>
-    <a href="#contact">Contact</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#admin">Admin</a>
+    <a href="#" id="logoutLink" class="hidden">Logout</a>
   </nav>
 
   <div class="container" id="home">
@@ -75,6 +80,17 @@
       <button type="submit">Generate Certificate</button>
     </form>
     <p>Note: Your certificate will be generated after completing the course and submitted assessments.</p>
+  </div>
+
+  <div class="container hidden" id="dashboard">
+    <h2>Dashboard</h2>
+    <p>Welcome back, <span id="dashboardUsername"></span>!</p>
+    <button class="logout-btn" id="logoutButton">Logout</button>
+  </div>
+
+  <div class="container hidden" id="admin">
+    <h2>Admin Area</h2>
+    <p>Admin functionalities will be implemented here.</p>
   </div>
 
   <div class="container" id="contact">
@@ -152,24 +168,25 @@
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const form = e.target;
-      const data = {
-        username: form.username.value,
-        password: form.password.value,
-      };
+      const formData = new URLSearchParams();
+      formData.append('username', form.username.value);
+      formData.append('password', form.password.value);
       const msg = document.getElementById('loginMessage');
       msg.textContent = '';
       try {
         const res = await fetch(`${backendURL}/login`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData,
         });
         const result = await res.json();
         if (res.ok) {
           msg.style.color = 'green';
-          msg.textContent = 'Login successful! Welcome back.';
+          msg.textContent = 'Login successful! Redirecting to dashboard...';
+          localStorage.setItem('token', result.access_token);
+          localStorage.setItem('username', form.username.value);
           form.reset();
-          // TODO: Redirect to dashboard or courses page
+          showDashboard();
         } else {
           msg.style.color = 'red';
           msg.textContent = result.detail || 'Login failed.';
@@ -180,8 +197,25 @@
       }
     });
 
-    // Load courses immediately on page load
-    window.onload = loadCourses;
-  </script>
-</body>
-</html>
+    // Show dashboard
+    function showDashboard() {
+      document.getElementById('dashboardUsername').textContent = localStorage.getItem('username');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('login').classList.add('hidden');
+      document.getElementById('register').classList.add('hidden');
+      document.getElementById('logoutLink').classList.remove('hidden');
+    }
+
+    // Logout functionality
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('login').classList.remove('hidden');
+      document.getElementById('register').classList.remove('hidden');
+      document.getElementById('logoutLink').classList.add('hidden');
+    });
+
+    // Logout link in nav
+    document.getElementById('logoutLink').addEventListener('click', (e) => {
+      e.preventDefault
