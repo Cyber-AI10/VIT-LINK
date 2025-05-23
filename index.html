@@ -22,17 +22,7 @@
 <body>
   <header>
     <h1>Vit-Link</h1>
-    <h2>Good Night, Mugumya Gilbert"
-
-Close your eyes, young man ,
-Let dreams take you through the night.
-Books can rest, the stars are near,
-Sleep in peace, you've naught to fear.
-
-everything will come and pass, but not tonight—
-For now, just drift in gentle light.
-You're strong, you're wise, you're nearly there,
-So sleep with hope and midnight air</h2>
+    <h2>Good Night, Mugumya Gilbert</h2>
     <p>Empowering Youth Through Practical IT Skills</p>
   </header>
 
@@ -55,7 +45,6 @@ So sleep with hope and midnight air</h2>
   <div class="container" id="courses">
     <h2>Courses Offered</h2>
     <div id="coursesList">
-      <!-- Courses will load here dynamically -->
       <p>Loading courses...</p>
     </div>
   </div>
@@ -73,11 +62,10 @@ So sleep with hope and midnight air</h2>
   <div class="container" id="register">
     <h2>Student Registration</h2>
     <form id="registerForm">
-      <input type="text" placeholder="Full Name" name="fullname" required />
+      <input type="text" placeholder="Full Name (no numbers)" name="fullname" required />
       <input type="email" placeholder="Email Address" name="email" required />
-      <input type="text" placeholder="Phone Number" name="phone" required />
       <input type="text" placeholder="Create Username" name="username" required />
-      <input type="password" placeholder="Create Password" name="password" required />
+      <input type="password" placeholder="Create Password (min 6 chars)" name="password" required />
       <button type="submit">Register</button>
     </form>
     <div id="registerMessage"></div>
@@ -146,7 +134,6 @@ So sleep with hope and midnight air</h2>
       const data = {
         fullname: form.fullname.value,
         email: form.email.value,
-        phone: form.phone.value,
         username: form.username.value,
         password: form.password.value,
       };
@@ -167,7 +154,8 @@ So sleep with hope and midnight air</h2>
           msg.style.color = 'red';
           msg.textContent = result.detail || 'Registration failed.';
         }
-      } catch {
+      } catch (err) {
+        console.error('Registration error:', err);
         msg.style.color = 'red';
         msg.textContent = 'Network error. Please try again later.';
       }
